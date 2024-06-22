@@ -1,5 +1,5 @@
 {
-  "name": "proyecto-backend-en-local",
+  "name": "ecommerce",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,8 @@
     "express": "^4.19.2",
     "mysql2": "^3.10.1",
     "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
