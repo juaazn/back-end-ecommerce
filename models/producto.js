@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Producto.belongsToMany(models.pedido, {
-        through: "pedido_has_producto",
+        through: models.pedido_has_producto,
       });
     }
   }
