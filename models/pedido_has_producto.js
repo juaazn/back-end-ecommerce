@@ -12,14 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      pedido_has_producto.belongsTo(models.pedido);
-      pedido_has_producto.belongsTo(models.producto)
     }
   }
   pedido_has_producto.init(
     {
-      productoId: DataTypes.INTEGER,
-      pedidoId: DataTypes.INTEGER,
+      ProductoId: DataTypes.INTEGER,
+      PedidoId: DataTypes.INTEGER,
     },
     {
       sequelize,
