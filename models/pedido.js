@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      pedido.belongsToMany(models.producto, {
+        through: "pedido_has_producto",
+      });
     }
   }
   pedido.init(
@@ -18,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "pedido",
-    },
+    }
   );
   return pedido;
 };
