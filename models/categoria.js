@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Categoria.hasMany(models.Producto)
+      Categoria.hasMany(models.Producto);
     }
   }
   Categoria.init(
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "categoria",
-    },
+    }
   );
   return Categoria;
 };
