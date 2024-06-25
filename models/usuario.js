@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Usuario.hasMany(models.Pedido);
     }
   }
   Usuario.init(
@@ -21,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "usuario",
-    },
+    }
   );
   return Usuario;
 };

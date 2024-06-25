@@ -9,13 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Pedido.belongsToMany(models.Producto, {
-        through: models.PedidoProducto, foreignKey: 'PedidoId'
+        through: models.PedidoProducto,
+        foreignKey: "PedidoId",
       });
+      Pedido.belongsTo(models.Usuario);
     }
   }
   Pedido.init(
     {
       fecha: DataTypes.DATE,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,
