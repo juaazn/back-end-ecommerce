@@ -19,13 +19,10 @@ const ProductoController = {
 
   async update(req, res) {
     await Producto.update(
-      { name: req.body.name, 
-        price: req.body.price, 
-
-      },
+      { name: req.body.name, price: req.body.price },
       { where: { id: req.params.id } }
-    )
-    res.send('Producto actualizado con éxito')
+    );
+    res.send("Producto actualizado con éxito");
   },
 
   //PARA ELIMINAR UN PRODUCTO
@@ -35,10 +32,9 @@ const ProductoController = {
       where: {
         id: req.params.id,
       },
-    })
-    res.send('El producto ha sido eliminado con éxito')
+    });
+    res.send("El producto ha sido eliminado con éxito");
   },
-
 
   //PARA TRAER CATEGORÍAS
   getAll(req, res) {
@@ -78,7 +74,6 @@ const ProductoController = {
   //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE
 
   //AÑADIR AUTENTICACIÓN PARA CREAR, ACTUALIZAR Y ELIMINAR
-
 };
 
 module.exports = ProductoController;
