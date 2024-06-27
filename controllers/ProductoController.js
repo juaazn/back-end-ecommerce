@@ -51,7 +51,7 @@ const ProductoController = {
   //PARA TRAER PRODUCTO POR ID
   getById(req, res) {
     Producto.findByPk(req.params.id, {
-      include: [{ model: Producto, attributes: ["name"] }],
+       attributes: ["name"],
     }).then((producto) => res.send(producto));
   },
 
@@ -59,8 +59,8 @@ const ProductoController = {
   getOneByName(req, res) {
     Producto.findOne({
       where: {
-        title: {
-          [Op.like]: `%${req.params.title}%`,
+        name: {
+          [Op.like]: `%${req.params.name}%`,
         },
       },
       include: [Categoria],
@@ -68,6 +68,7 @@ const ProductoController = {
   },
 
   //FILTRO BUSCAR PRODUCTO POR PRECIO
+
 
   //FILTRO PARA ORDENAR PRODUCTOS DE MAYOR A MENOR PRECIO
 

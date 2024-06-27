@@ -17,6 +17,10 @@ module.exports = {
       },
       CategoriaId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Categorias",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
