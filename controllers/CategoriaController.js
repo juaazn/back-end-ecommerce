@@ -1,11 +1,10 @@
-const { Categoria, Producto } = require("../models/index.js");
+const { Categoria } = require("../models/index.js");
 
 const CategoriaController = {
   create(req, res) {
-    req.body.role = "categoria";
-    const { nombre_categoria } = req.body;
-
-    Producto.create(nombre_categoria)
+    const { nameCategorie } = req.body;
+    console.log(nameCategorie);
+    Categoria.create({ nameCategorie })
       .then((categoria) => {
         res
           .status(201)
@@ -15,7 +14,7 @@ const CategoriaController = {
   },
 
   getAll(req, res) {
-    Categoria.findAll({ include: [Producto] })
+    Categoria.findAll({ include: [Categoria] })
       .then((categorias) => res.send(categorias))
       .catch((err) => {
         console.log(err);
