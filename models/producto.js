@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       }),
         Producto.belongsToMany(models.Pedido, {
           through: models.PedidoProducto,
-          foreignKey: "ProductoId"
+          foreignKey: "ProductoId",
         });
     }
   }
@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       CategoriaId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'Categoria',
-          key: 'id',
-        }
-      }
+          model: "Categoria",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,

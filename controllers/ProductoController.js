@@ -51,7 +51,7 @@ const ProductoController = {
   //PARA TRAER PRODUCTO POR ID
   getById(req, res) {
     Producto.findByPk(req.params.id, {
-       attributes: ["name"],
+      attributes: ["name"],
     }).then((producto) => res.send(producto));
   },
 
@@ -82,17 +82,21 @@ const ProductoController = {
   //FILTRO PARA ORDENAR PRODUCTOS DE MAYOR A MENOR PRECIO
 
   getAllSortedByPrice(req, res) {
-    Producto.findAll({ order: [['price', 'DESC']] })
-    .then((productos) => {
-      if (productos.length === 0) {
-        return res.status(404).send({ message: 'No se encontraron productos' });
-      }
-      res.send(productos);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send({ message: 'Error al obtener los productos', error: err });
-    });
+    Producto.findAll({ order: [["price", "DESC"]] })
+      .then((productos) => {
+        if (productos.length === 0) {
+          return res
+            .status(404)
+            .send({ message: "No se encontraron productos" });
+        }
+        res.send(productos);
+      })
+      .catch((err) => {
+        console.error(err);
+        res
+          .status(500)
+          .send({ message: "Error al obtener los productos", error: err });
+      });
   },
 
   //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE
