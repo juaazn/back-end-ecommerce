@@ -36,7 +36,7 @@ const ProductoController = {
     res.send("El producto ha sido eliminado con éxito");
   },
 
-  //PARA TRAER CATEGORÍAS
+  //PARA TRAER PRODUCTOS CON CATEGORÍAS
   getAll(req, res) {
     Producto.findAll({ include: [Categoria] })
       .then((productos) => res.send(productos))
@@ -68,9 +68,32 @@ const ProductoController = {
   },
 
   //FILTRO BUSCAR PRODUCTO POR PRECIO
-
+  getOneByName(req, res) {
+    Producto.findOne({
+      where: {
+        price: {
+          [Op.like]: `%${req.params.price}%`,
+        },
+      },
+      include: [Categoria],
+    }).then((producto) => res.send(producto));
+  },
 
   //FILTRO PARA ORDENAR PRODUCTOS DE MAYOR A MENOR PRECIO
+
+  getAllSortedByPrice(req, res) {
+    Producto.findAll({ order: [['price', 'DESC']] })
+    .then((productos) => {
+      if (productos.length === 0) {
+        return res.status(404).send({ message: 'No se encontraron productos' });
+      }
+      res.send(productos);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener los productos', error: err });
+    });
+  },
 
   //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE
 
