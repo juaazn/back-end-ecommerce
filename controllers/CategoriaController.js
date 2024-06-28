@@ -44,6 +44,20 @@ const CategoriaController = {
         });
       });
   },
+  delete(req, res) {
+    const { id } = req.params;
+
+    Categoria.destroy({ where: { id: id } })
+      .then((categoria) => {
+        categoria ? res.sendStatus(204) : res.sendStatus(404);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al actualizar la categoría",
+        });
+      });
+  },
 };
 
 module.exports = CategoriaController;
