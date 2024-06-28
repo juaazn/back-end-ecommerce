@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Categoria.init(
     {
-      nombre_categoria: DataTypes.STRING,
+      nameCategorie: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "Categoria",
-      // tableName: 'Categorias's
+      tableName: "Categorias",
     }
   );
   return Categoria;

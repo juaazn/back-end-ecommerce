@@ -1,9 +1,11 @@
-const { Categoria, Producto } = require("../models/index.js");
+const { where } = require("sequelize");
+const { Categoria } = require("../models/index.js");
 
 const CategoriaController = {
   create(req, res) {
-    req.body.role = "categoria";
-    Categoria.create(req.body)
+    const { nameCategorie } = req.body;
+    console.log(nameCategorie);
+    Categoria.create({ nameCategorie })
       .then((categoria) => {
         res
           .status(201)
@@ -19,6 +21,40 @@ const CategoriaController = {
         console.log(err);
         res.status(500).send({
           message: "Ha habido un problema al cargar las categorias",
+        });
+      });
+  },
+  update(req, res) {
+    const { id } = req.params;
+    const { nameCategorie } = req.body;
+
+    console.log(id, nameCategorie);
+
+    Categoria.update({ nameCategorie: nameCategorie }, { where: { id: id } })
+      .then(() => {
+        return Categoria.findByPk(id);
+      })
+      .then((categoria) => {
+        res.send(categoria);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al actualizar la categoría",
+        });
+      });
+  },
+  delete(req, res) {
+    const { id } = req.params;
+
+    Categoria.destroy({ where: { id: id } })
+      .then((categoria) => {
+        categoria ? res.sendStatus(204) : res.sendStatus(404);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al actualizar la categoría",
         });
       });
   },
