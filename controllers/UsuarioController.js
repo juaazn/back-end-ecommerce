@@ -1,3 +1,4 @@
+const bcryptjs = require("bcryptjs");
 const { Usuario } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 
@@ -11,6 +12,22 @@ const UsuarioController = {
         res.status(201).send({ message: "Usuario creada con éxito", usuario });
       })
       .catch((err) => console.log(err));
+  },
+  login(req, res) {
+    Usuario.findOne({ where: { email: rl } }).then((usuario) => {
+      if (!usuario) {
+        return res
+          .status(400)
+          .send({ message: "Usuario o contraseña incorrecta" });
+      }
+      const isMatch = bcryptjs.compareSync(req.body.password, usuario.password);
+      if (!isMatch) {
+        return res
+          .status(400)
+          .send({ message: "Usuario o contraseña incorrecto" });
+      }
+      res.send("Incio de sesión", usuario);
+    });
   },
 };
 
