@@ -1,6 +1,8 @@
 const bcryptjs = require("bcryptjs");
-const { Usuario } = require("../models/index.js");
+const { Usuario, Token } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { jwt_secret } = require("../config/config.json")["development"];
 
 const UsuarioController = {
   create(req, res) {
@@ -14,7 +16,7 @@ const UsuarioController = {
       .catch((err) => console.log(err));
   },
   login(req, res) {
-    Usuario.findOne({ where: { email: rl } }).then((usuario) => {
+    Usuario.findOne({ where: { email: req.body.email } }).then((usuario) => {
       if (!usuario) {
         return res
           .status(400)
@@ -26,7 +28,10 @@ const UsuarioController = {
           .status(400)
           .send({ message: "Usuario o contraseña incorrecto" });
       }
-      res.send("Incio de sesión", usuario);
+
+      const token = jwt.sign({ id: usuario.id }, jwt_secret);
+      Token.create({ token, UserId: usuario.id });
+      res.send({ message: "Bienvenid@ " + usuario.name, usuario, token });
     });
   },
 };
