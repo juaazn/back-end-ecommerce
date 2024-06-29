@@ -11,20 +11,35 @@ module.exports = (sequelize, DataTypes) => {
       Producto.belongsTo(models.Categoria, {
         foreignKey: "id",
       }),
-        Producto.belongsToMany(models.Pedido, {
+      Producto.belongsToMany(models.Pedido, {
           through: models.PedidoProducto,
           foreignKey: "ProductoId",
+          otherKey: "PedidoId"
         });
     }
   }
   Producto.init(
     {
-      name: DataTypes.STRING,
-      price: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Por favor introduce el nombre del producto" },
+        }
+      },
+      
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Por favor introduce el precio" },
+        }
+      },
+      
       CategoriaId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Categoria",
+          model: "Categorias",
           key: "id",
         },
       },
@@ -32,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Producto",
-      tableName: "Productos",
+      tableName: "Productos"
     }
   );
   return Producto;

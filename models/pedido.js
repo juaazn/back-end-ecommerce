@@ -11,18 +11,28 @@ module.exports = (sequelize, DataTypes) => {
       Pedido.belongsToMany(models.Producto, {
         through: models.PedidoProducto,
         foreignKey: "PedidoId",
+        otherKey: "ProductoId"
+      }),
+      Pedido.belongsTo(models.Usuario, {
+        foreignKey: "id",
       });
-      Pedido.belongsTo(models.Usuario);
     }
   }
   Pedido.init(
     {
       fecha: DataTypes.DATE,
-      userId: DataTypes.INTEGER,
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+        model: "Usuarios",
+        key: "id",
+      },
+      }
     },
     {
       sequelize,
       modelName: "Pedido",
+      tableName: "Pedidos"
     }
   );
   return Pedido;

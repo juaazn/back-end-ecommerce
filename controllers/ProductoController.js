@@ -3,16 +3,19 @@ const { Op } = Sequelize;
 
 const ProductoController = {
   //PARA CREAR PRODUCTO
-  create(req, res) {
+  create(req, res, next) {
     req.body.role = "producto";
     Producto.create(req.body)
       .then((producto) => {
-        producto.addPedido(req.body.PedidoId);
+        //producto.addPedido(req.body.PedidoId);
         res
           .status(201)
           .send({ message: "Producto creado con éxito", producto });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err)
+        next(err)
+      })
   },
 
   //PARA ACTUALIZAR UN PRODUCTO
@@ -36,7 +39,7 @@ const ProductoController = {
     res.send("El producto ha sido eliminado con éxito");
   },
 
-  //PARA TRAER PRODUCTOS CON CATEGORÍAS
+  //PARA TRAER LISTA PRODUCTOS CON CATEGORÍAS
   getAll(req, res) {
     Producto.findAll({ include: [Categoria] })
       .then((productos) => res.send(productos))
@@ -99,9 +102,12 @@ const ProductoController = {
       });
   },
 
-  //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE
+  //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE HECHO EN PRODUCTO.JS Y ERRORS.JS
 
   //AÑADIR AUTENTICACIÓN PARA CREAR, ACTUALIZAR Y ELIMINAR
+
+
+
 };
 
 module.exports = ProductoController;
