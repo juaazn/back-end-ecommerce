@@ -6,7 +6,7 @@ const { jwt_secret } = require("../config/config.json")["development"];
 const { Op } = Sequelize;
 
 const UsuarioController = {
-  create(req, res) {
+  create(req, res, next) {
     const { name, email, password, role } = req.body;
     const passwordHash = bcrypt.hashSync(password, 10);
 
@@ -14,7 +14,10 @@ const UsuarioController = {
       .then((usuario) => {
         res.status(201).send({ message: "Usuario creada con éxito", usuario });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        next(err);
+      });
   },
   login(req, res) {
     Usuario.findOne({ where: { email: req.body.email } }).then((usuario) => {
