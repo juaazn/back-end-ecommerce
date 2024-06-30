@@ -20,5 +20,4 @@ const typeError = (err, req, res, next) => {
       .send({ msg: "Hubo un problema. Fallo en los controladores", err });
   }
 };
-
 module.exports = { typeError };
