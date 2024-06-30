@@ -15,7 +15,9 @@ const typeError = (err, req, res, next) => {
   ) {
     handleValidationError(err, res);
   } else {
-    res.status(500).send({ msg: "Hubo un problema", err });
+    res
+      .status(500)
+      .send({ msg: "Hubo un problema. Fallo en los controladores", err });
   }
 };
 

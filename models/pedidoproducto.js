@@ -1,22 +1,32 @@
 'use strict';
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  const PedidoProducto = sequelize.define('PedidoProducto', {
-    PedidoId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Pedidos', // Nombre de la tabla de pedidos
-        key: 'id',
+  class PedidoProducto extends Model {}
+
+  PedidoProducto.init(
+    {
+      PedidoId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Pedidos',
+          key: 'id',
+        },
       },
-      primaryKey: true
+      ProductoId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Productos',
+          key: 'id',
+        },
+      },
     },
-    ProductoId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Productos', // Nombre de la tabla de productos
-        key: 'id',
-      },
-      primaryKey: true
+    {
+      sequelize,
+      modelName: 'PedidoProducto',
+      tableName: 'PedidoProductos'
     }
-  }) 
+  );
+
   return PedidoProducto;
 };
