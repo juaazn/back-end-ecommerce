@@ -1,4 +1,4 @@
-const bcryptjs = require("bcryptjs");
+//const bcryptjs = require("bcryptjs");
 const { Usuario, Token, Sequelize } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -26,7 +26,7 @@ const UsuarioController = {
           .status(400)
           .send({ message: "Usuario o contraseña incorrecta" });
       }
-      const isMatch = bcryptjs.compareSync(req.body.password, usuario.password);
+      const isMatch = bcrypt.compareSync(req.body.password, usuario.password);
       if (!isMatch) {
         return res
           .status(400)

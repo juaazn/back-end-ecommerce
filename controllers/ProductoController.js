@@ -1,11 +1,11 @@
-const { Producto, Categoria, Sequelize } = require("../models/index.js");
+const { Producto, Categoria, Usuario, Sequelize } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const ProductoController = {
   //PARA CREAR PRODUCTO
   create(req, res, next) {
     req.body.role = "producto";
-    Producto.create(req.body)
+    Producto.create({ ...req.body })// No necesito recuperar el id de usuario - UserId: req.usuario.id
       .then((producto) => {
         //producto.addPedido(req.body.PedidoId);
         res
