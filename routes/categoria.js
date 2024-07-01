@@ -8,6 +8,6 @@ router.put("/update/:id", CategoriaController.update);
 router.delete("/delete/:id", CategoriaController.delete);
 router.get("/cateAndproducts", CategoriaController.getCategorieAndProducts);
 router.get("/getById/:id", CategoriaController.getById);
-router.get("/getByName/:nameCategorie", CategoriaController.getByName);
+router.get("/getByName", CategoriaController.getByName);
 
 module.exports = router;
