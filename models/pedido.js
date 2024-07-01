@@ -11,10 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       Pedido.belongsToMany(models.Producto, {
         through: models.PedidoProducto,
         foreignKey: "PedidoId",
-        otherKey: "ProductoId"
+        otherKey: "ProductoId",
       }),
-      Pedido.belongsTo(models.Usuario, {
-        foreignKey: "id",
+        Pedido.belongsTo(models.Usuario, {
+          foreignKey: "id",
+        });
+      Pedido.belongsTo(models.Usuario, { foreignKey: "userId" });
+      Pedido.belongsToMany(models.Producto, {
+        through: models.PedidoProducto,
+        foreignKey: "PedidoId",
       });
     }
   }
@@ -24,15 +29,15 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         references: {
-        model: "Usuarios",
-        key: "id",
+          model: "Usuarios",
+          key: "id",
+        },
       },
-      }
     },
     {
       sequelize,
       modelName: "Pedido",
-      tableName: "Pedidos"
+      tableName: "Pedidos",
     }
   );
   return Pedido;

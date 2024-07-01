@@ -1,5 +1,11 @@
 //const bcryptjs = require("bcryptjs");
-const { Usuario, Token, Sequelize } = require("../models/index.js");
+const {
+  Usuario,
+  Token,
+  Producto,
+  Pedido,
+  Sequelize,
+} = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"];
@@ -54,6 +60,32 @@ const UsuarioController = {
       res
         .status(500)
         .send({ message: "hubo un problema al tratar de desconectarte" });
+    }
+  },
+  async getAll(req, res) {
+    try {
+      const userId = req.user.id; // Obtener el ID del usuario autenticado
+
+      // Encontrar el usuario junto con sus pedidos y productos en esos pedidos
+      const user = await Usuario.findByPk(userId, {
+        include: {
+          model: Pedido,
+          include: {
+            model: Producto,
+          },
+        },
+      });
+
+      if (!user) {
+        return res.status(404).send({ message: "Usuario no encontrado" });
+      }
+
+      res.status(200).send(user);
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario:", error);
+      res
+        .status(500)
+        .send({ message: "Error al obtener los datos del usuario" });
     }
   },
 };
