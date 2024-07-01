@@ -81,11 +81,10 @@ const CategoriaController = {
       });
   },
   getByName(req, res) {
+    const { nameCategorie } = req.body;
     Categoria.findOne({
       where: {
-        name: {
-          [Op.like]: `%${req.params.name}%`,
-        },
+        nameCategorie: nameCategorie,
       },
     })
       .then((producto) => res.send(producto))
