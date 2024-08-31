@@ -29,6 +29,6 @@ module.exports = {
     mysql_root_password: process.env.MYSQL_ROOT_PASSWORD,
     mysql_url: process.env.MYSQL_URL,
     jwt_secret: process.env.MYSQL_JWT_SECRET,
-    dialect: process.env.DIALECT,
+    dialect: "mysql",
   },
 };
