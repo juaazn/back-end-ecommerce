@@ -25,7 +25,6 @@ module.exports = {
     mysql_port: process.env.MYSQLPORT,
     mysql_user: process.MYSQLUSER,
     mysql_database: process.env.MYSQL_DATABASE,
-    mysql_public_url: process.env.MYSQL_PUBLIC_URL,
     mysql_root_password: process.env.MYSQL_ROOT_PASSWORD,
     mysql_url: process.env.MYSQL_URL,
     jwt_secret: process.env.MYSQL_JWT_SECRET,
