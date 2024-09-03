@@ -24,6 +24,7 @@ module.exports = {
     database: process.env.MYSQL_DATABASE,
     host: process.env.MYSQLHOST,
     port: process.env.MYSQLPORT,
+    url: process.env.MYSQL_URL,
     dialect: "mysql",
     jwt_secret: process.env.MYSQL_JWT_SECRET,
   },
