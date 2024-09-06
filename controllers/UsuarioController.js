@@ -22,29 +22,41 @@ const UsuarioController = {
       })
       .catch((err) => {
         console.log(err);
+        res.status(500).send({
+          message: "Error en la creación del usuario",
+          error: err.message,
+        });
         next(err);
       });
   },
   login(req, res) {
-    Usuario.findOne({ where: { email: req.body.email } }).then((usuario) => {
-      if (!usuario) {
-        return res
-          .status(400)
-          .send({ message: "Usuario o contraseña incorrecta" });
-      }
-      const isMatch = bcrypt.compareSync(req.body.password, usuario.password);
-      if (!isMatch) {
-        return res
-          .status(400)
-          .send({ message: "Usuario o contraseña incorrecto" });
-      }
+    try {
+      Usuario.findOne({ where: { email: req.body.email } }).then((usuario) => {
+        if (!usuario) {
+          return res
+            .status(400)
+            .send({ message: "Usuario o contraseña incorrecta" });
+        }
+        const isMatch = bcrypt.compareSync(req.body.password, usuario.password);
+        if (!isMatch) {
+          return res
+            .status(400)
+            .send({ message: "Usuario o contraseña incorrecto" });
+        }
 
-      const token = jwt.sign({ id: usuario.id }, jwt_secret, {
-        expiresIn: "1h",
+        const token = jwt.sign({ id: usuario.id }, jwt_secret, {
+          expiresIn: "1h",
+        });
+        Token.create({ token, UserId: usuario.id });
+        res.send({ message: "Bienvenid@ " + usuario.name, usuario, token });
       });
-      Token.create({ token, UserId: usuario.id });
-      res.send({ message: "Bienvenid@ " + usuario.name, usuario, token });
-    });
+    } catch (error) {
+      console.log(err);
+      res.status(500).send({
+        message: "Error: Login",
+        error: err.message,
+      });
+    }
   },
   async logout(req, res) {
     try {
