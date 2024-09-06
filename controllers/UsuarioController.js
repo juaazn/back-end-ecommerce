@@ -8,7 +8,7 @@ const {
 } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require("../config/config.json")["development"];
+const { jwt_secret } = require("../config/config.js")["development"];
 const { Op } = Sequelize;
 
 const UsuarioController = {
