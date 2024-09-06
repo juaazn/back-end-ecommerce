@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports = {
   development: {
-    username: process.env.DB_DEV_USERNAME,
+    username: "root",
     password: process.env.DB_DEV_PASSWORD,
     database: process.env.DB_DEV_DATABASE,
     host: process.env.DB_DEV_HOST,
@@ -19,16 +19,13 @@ module.exports = {
     dialect: process.env.DB_TEST_DIALECT,
   },
   production: {
-    mysqldatabase: process.env.MYSQLDATABASE,
-    mysql_host: process.env.MYSQLHOST,
-    mysql_password: process.env.MYSQLPASSWORD,
-    mysql_port: process.env.MYSQLPORT,
-    mysql_user: process.MYSQLUSER,
-    mysql_database: process.env.MYSQL_DATABASE,
-    mysql_public_url: process.env.MYSQL_PUBLIC_URL,
-    mysql_root_password: process.env.MYSQL_ROOT_PASSWORD,
-    mysql_url: process.env.MYSQL_URL,
+    username: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    url: process.env.MYSQL_URL,
+    dialect: "mysql",
     jwt_secret: process.env.MYSQL_JWT_SECRET,
-    dialect: process.env.DIALECT,
   },
 };
