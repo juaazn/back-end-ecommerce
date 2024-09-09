@@ -12,6 +12,7 @@ app.use("/usuario", require("./routes/usuario"));
 app.use("/producto", require("./routes/producto"));
 app.use("/categoria", require("./routes/categoria"));
 app.use("/pedido", require("./routes/pedido"));
+app.use("/cloudinary", require("./routes/cloudinary"));
 
 app.use(typeError); //EJECUTAR MIDDLEWARE GESTION ERRORES
 
