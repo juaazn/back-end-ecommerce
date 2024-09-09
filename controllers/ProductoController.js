@@ -1,11 +1,16 @@
-const { Producto, Categoria, Usuario, Sequelize } = require("../models/index.js");
+const {
+  Producto,
+  Categoria,
+  Usuario,
+  Sequelize,
+} = require("../models/index.js");
 const { Op } = Sequelize;
 
 const ProductoController = {
   //PARA CREAR PRODUCTO
   create(req, res, next) {
     req.body.role = "producto";
-    Producto.create({ ...req.body })// No necesito recuperar el id de usuario - UserId: req.usuario.id
+    Producto.create({ ...req.body }) // No necesito recuperar el id de usuario - UserId: req.usuario.id
       .then((producto) => {
         //producto.addPedido(req.body.PedidoId);
         res
@@ -13,9 +18,9 @@ const ProductoController = {
           .send({ message: "Producto creado con éxito", producto });
       })
       .catch((err) => {
-        console.error(err)
-        next(err)
-      })
+        console.error(err);
+        next(err);
+      });
   },
 
   //PARA ACTUALIZAR UN PRODUCTO
@@ -53,9 +58,7 @@ const ProductoController = {
 
   //PARA TRAER PRODUCTO POR ID
   getById(req, res) {
-    Producto.findByPk(req.params.id, {
-      attributes: ["name"],
-    }).then((producto) => res.send(producto));
+    Producto.findByPk(req.params.id).then((producto) => res.send(producto));
   },
 
   //FILTRO PARA BUSCAR PRODUCTO POR NOMBRE O TÍTULO
@@ -105,9 +108,6 @@ const ProductoController = {
   //VALIDACIÓN RELLENAR TODOS LOS CAMPOS CON MENSAJE HECHO EN PRODUCTO.JS Y ERRORS.JS
 
   //AÑADIR AUTENTICACIÓN PARA CREAR, ACTUALIZAR Y ELIMINAR
-
-
-
 };
 
 module.exports = ProductoController;
